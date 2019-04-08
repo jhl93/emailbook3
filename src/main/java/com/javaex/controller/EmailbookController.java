@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,7 +21,7 @@ public class EmailbookController {
 	}
 
 	@RequestMapping(value="/add", method = RequestMethod.POST)
-	public String write(@RequestAttribute EmailBookVo emailBookVo) {
+	public String write(@ModelAttribute EmailBookVo emailBookVo) {
 
 		System.out.println(emailBookVo.toString());
 		EmailBookDao dao = new EmailBookDao();
