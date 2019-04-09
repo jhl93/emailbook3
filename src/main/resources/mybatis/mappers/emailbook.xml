@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="emailbook">
+	
+	<select id="selectList" resultType="EmailBookVo">
+		<![CDATA[
+			select no,
+				   last_name as lastName,
+			   	   first_name as firstName,
+			   	   email
+			from emailbook
+			order by no
+		]]>
+	</select>
+
+	<insert id="insert" parameterType="EmailBookVo">
+		<![CDATA[
+			insert into emailbook( no,
+								   last_name,
+								   first_name,
+								   email )
+			values( seq_emailbook_no.nextval,
+					#{lastName},
+					#{firstName},
+					#{email} )
+		]]>
+	</insert>
+</mapper>

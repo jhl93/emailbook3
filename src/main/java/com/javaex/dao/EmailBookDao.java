@@ -1,17 +1,32 @@
 package com.javaex.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.javaex.vo.EmailBookVo;
 
+@Repository
 public class EmailBookDao {
 
+	@Autowired
+	private SqlSession sqlsession;
+	
+	public List<EmailBookVo> getList(){
+		
+		List<EmailBookVo> list = sqlsession.selectList("emailbook.selectList");
+		System.out.println(list.toString());
+		return list;
+	}
+	
+	public int insert(EmailBookVo vo) {
+		int count = sqlsession.insert("emailbook.insert", vo);
+		return count;
+	}
+	
+	/*
 	public List<EmailBookVo> getList() {
 		// 0. import java.sql.*;
 		Connection conn = null;
@@ -21,12 +36,13 @@ public class EmailBookDao {
 
 		try {
 			// 1. JDBC 드라이버 (Oracle) 로딩
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+//			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// 2. Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(url, "webdb", "webdb");
-
+//			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+//			conn = DriverManager.getConnection(url, "webdb", "webdb");
+			conn = oracleDataSource.getConnection();
+			
 			// 3. SQL문 준비 / 바인딩 / 실행
 			String query = "SELECT NO, " + 
 						   "       LAST_NAME, " + 
@@ -47,8 +63,6 @@ public class EmailBookDao {
 				list.add(vo);
 			}
 
-		} catch (ClassNotFoundException e) {
-			System.out.println("error: 드라이버 로딩 실패 - " + e);
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -72,7 +86,9 @@ public class EmailBookDao {
 
 		return list;
 	}
+	*/
 	
+	/*
 	public int insert(EmailBookVo vo) {
 		// 0. import java.sql.*;
 		Connection conn = null;
@@ -81,12 +97,13 @@ public class EmailBookDao {
 
 		try {
 			// 1. JDBC 드라이버 (Oracle) 로딩
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+//			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// 2. Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(url, "webdb", "webdb");
-
+//			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+//			conn = DriverManager.getConnection(url, "webdb", "webdb");
+			conn = oracleDataSource.getConnection();
+			
 			// 3. SQL문 준비 / 바인딩 / 실행
 			String query = "INSERT INTO EMAILBOOK " + 
 						   "            (NO, " + 
@@ -108,8 +125,6 @@ public class EmailBookDao {
 
 			
 
-		} catch (ClassNotFoundException e) {
-			System.out.println("error: 드라이버 로딩 실패 - " + e);
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -130,4 +145,5 @@ public class EmailBookDao {
 
 		return count;
 	}
+	*/
 }
